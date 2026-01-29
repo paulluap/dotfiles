@@ -1,0 +1,19 @@
+[user]
+    name=Paul
+    email=taotao.nov@gmail.com
+[core]
+    editor=vim
+[alias]
+    # Shortcuts
+    st = status
+    # The "Fancy Log": A readable, colored graph of your history
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[pull]
+    # Prevents "Merge" commits every time you pull; keeps history linear
+    rebase = true
+[init]
+    defaultBranch = main
+[diff]
+    # Better diff algorithm (more readable)
+    algorithm = histogram
+    

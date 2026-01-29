@@ -1,0 +1,33 @@
+# --- Folders to Ignore Completely ---
+.cache/
+.dbus/
+.local/share/
+.cargo/
+.npm/
+.ssh/
+.gnupg/
+
+# --- System & Temp Files ---
+.DS_Store
+.netrc
+*.swp
+*.tmp
+.fzf.zsh
+
+# --- History Files (Privacy Risk!) ---
+.bash_history
+.zsh_history
+.python_history
+.viminfo
+.lesshst
+.node_repl_history
+
+# --- Secrets & Local Overrides ---
+.env
+*.local
+.gitconfig.local
+
+# --- Large Dev Artifacts ---
+node_modules/
+__pycache__/
+target/
