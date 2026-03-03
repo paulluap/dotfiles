@@ -52,3 +52,20 @@ autocmd FileType html setl sw=2 sts=2 et
 nnoremap <c-h> :bprevious<cr>
 nnoremap <c-l> :bnext<cr>
 
+inoremap <c-b> <Esc>:Lex<cr>:vertical resize 30<cr>
+nnoremap <c-b> <Esc>:Lex<cr>:vertical resize 30<cr>
+
+"" vim plug
+call plug#begin()
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+
+call plug#end()
+
+
+
+
