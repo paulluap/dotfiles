@@ -7,13 +7,26 @@
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 config config --local status.showUntrackedFiles no
 
-# add binaries to PATH if they aren't added yet
-# affix colons on either side of $PATH to simplify matching
-case ":${PATH}:" in
-    *:"$HOME/.local/bin":*)
-        ;;
-    *)
-        # Prepending path in case a system-installed binary needs to be overridden
-        export PATH="$HOME/.local/bin:$PATH"
-        ;;
-esac
+# Add binaries to PATH if they aren't added yet.
+# To add more paths, append to the list below (works in bash and zsh).
+_paths_to_prepend=(
+    "$HOME/.local/bin"
+    "$HOME/go/bin"
+)
+for _p in "${_paths_to_prepend[@]}"; do
+    case ":${PATH}:" in
+        *:"${_p}":*) ;;
+        *) export PATH="${_p}:$PATH" ;;
+    esac
+done
+unset _p _paths_to_prepend
+
+
+# Init zoxide (smart cd) only if installed
+if command -v zoxide &>/dev/null; then
+    _zoxide_shell=bash
+    [ -n "${ZSH_VERSION-}" ] && _zoxide_shell=zsh
+    eval "$(zoxide init $_zoxide_shell)"
+    unset _zoxide_shell
+fi
+
