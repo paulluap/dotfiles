@@ -52,6 +52,9 @@ autocmd FileType html setl sw=2 sts=2 et
 nnoremap <c-h> :bprevious<cr>
 nnoremap <c-l> :bnext<cr>
 
+" Alt-w 作为 Ctrl-w 的别名，用于分屏操作等
+nnoremap <A-w> <C-w>
+
 inoremap <c-b> <Esc>:Lex<cr>:vertical resize 30<cr>
 nnoremap <c-b> <Esc>:Lex<cr>:vertical resize 30<cr>
 
