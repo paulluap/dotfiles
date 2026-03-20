@@ -512,3 +512,14 @@ tmux_conf_uninstall_plugins_on_reload=true
 ### CUSTOM (Paul)
 unbind C-a
 set -gu prefix2
+# bind without "-r"
+bind  h select-pane -L  # move left
+bind  j select-pane -D  # move down
+bind  k select-pane -U  # move up
+bind  l select-pane -R  # move right
+
+setw -g mode-keys vi
+
+# restore default window binding
+bind p previous-window
+bind n next-window

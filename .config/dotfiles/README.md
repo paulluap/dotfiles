@@ -36,3 +36,21 @@ cp -rv $HOME/cfg-tmp/. $HOME/
 rm -rf $HOME/cfg-tmp
 ```
 
+**Updating Submodules**
+
+This repository includes a `.tmux` submodule. To update it to the latest version:
+
+```
+config submodule update --remote .tmux
+config add .tmux
+config commit -m "Update .tmux submodule"
+```
+
+Or if working directly in the dotfiles directory:
+
+```
+git submodule update --remote .tmux
+git add .tmux
+git commit -m "Update .tmux submodule"
+```
+

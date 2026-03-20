@@ -3,7 +3,6 @@
 #    source "$HOME/.shrc"
 #fi
 
-
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 config config --local status.showUntrackedFiles no
 
@@ -29,4 +28,6 @@ if command -v zoxide &>/dev/null; then
     eval "$(zoxide init $_zoxide_shell)"
     unset _zoxide_shell
 fi
+
+export EDITOR=vim
 
