@@ -8,13 +8,22 @@ set history=100         " keep 100 lines of history
 
 syntax on               " syntax highlighting
 
+" Show line numbers
+set number
+set relativenumber
+
 set nobackup            " do not keep backup files, it's 70's style cluttering
 set nowb
 set noswapfile
 
+" Search improvements
 set hlsearch
 set incsearch
 set ignorecase
+
+" Better splitting
+set splitbelow
+set splitright
 
 set expandtab           " expand tabs to spaces by default
 set shiftwidth=4        " number of spaces to use for autoindenting
@@ -68,7 +77,5 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 
 call plug#end()
-
-
 
 
