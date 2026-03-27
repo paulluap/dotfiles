@@ -1,4 +1,5 @@
 
+""" settings
 let g:solarized_termcolors=256
 "colorscheme desert
 
@@ -57,7 +58,14 @@ autocmd FileType javascript setl sw=2 sts=2 et
 autocmd FileType xml setl sw=2 sts=2 et
 autocmd FileType html setl sw=2 sts=2 et
 
-"" basic shortcuts
+""" custom functions
+function! IsGitRepo()
+  let result = system('git rev-parse --is-inside-work-tree 2>/dev/null')
+  return v:shell_error == 0
+endfunction
+let s:is_git_repo = IsGitRepo()
+
+""" basic shortcuts
 nnoremap <c-h> :bprevious<cr>
 nnoremap <c-l> :bnext<cr>
 
@@ -67,15 +75,27 @@ nnoremap <A-w> <C-w>
 inoremap <c-b> <Esc>:Lex<cr>:vertical resize 30<cr>
 nnoremap <c-b> <Esc>:Lex<cr>:vertical resize 30<cr>
 
-"" vim plug
+""" vim plug
 call plug#begin()
+
+if exists('$ENABLE_COC') && $ENABLE_COC != '0'
+  " config doc: https://github.com/neoclide/coc.nvim/blob/master/data/schema.json
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  source ~/.vim/coc.vim
+endif
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+  let g:fzf_layout = { 'down': '40%' }
+  if s:is_git_repo
+    noremap <silent><nowait> <C-p>f :<C-u>GFiles<cr>
+  else 
+    noremap <silent><nowait> <C-p>f :<C-u>Files<cr>
+  endif
+
 
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 
 call plug#end()
-
 

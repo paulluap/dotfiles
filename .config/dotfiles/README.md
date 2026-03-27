@@ -31,9 +31,17 @@ Step-by-Step Setup
 **clone**
 
 ```
-git clone --separate-git-dir=$HOME/.cfg [https://github.com/YOUR_USERNAME/dotfiles.git](https://github.com/YOUR_USERNAME/dotfiles.git) $HOME/cfg-tmp
-cp -rv $HOME/cfg-tmp/. $HOME/
-rm -rf $HOME/cfg-tmp
+# Create the repo as a bare clone in a hidden folder
+git clone --bare git@github.com:paulluap/dotfiles.git $HOME/.cfg
+
+# Alias git to target your home directory
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
+# Configure git to not show untracked files in the home directory
+config config --local status.showUntrackedFiles no
+
+# Checkout your files
+config checkout
 ```
 
 **Updating Submodules**
@@ -41,16 +49,8 @@ rm -rf $HOME/cfg-tmp
 This repository includes a `.tmux` submodule. To update it to the latest version:
 
 ```
-config submodule update --remote .tmux
+config submodule update --remote .tmux  #need --init option for fresh clone 
 config add .tmux
 config commit -m "Update .tmux submodule"
-```
-
-Or if working directly in the dotfiles directory:
-
-```
-git submodule update --remote .tmux
-git add .tmux
-git commit -m "Update .tmux submodule"
 ```
 

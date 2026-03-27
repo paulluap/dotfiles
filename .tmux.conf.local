@@ -512,7 +512,7 @@ tmux_conf_uninstall_plugins_on_reload=true
 ### CUSTOM (Paul)
 unbind C-a
 set -gu prefix2
-# bind without "-r"
+# bind pane navigations without "-r"
 bind  h select-pane -L  # move left
 bind  j select-pane -D  # move down
 bind  k select-pane -U  # move up
@@ -523,3 +523,12 @@ setw -g mode-keys vi
 # restore default window binding
 bind p previous-window
 bind n next-window
+
+# Display Popups
+bind C-t display-popup \
+  -d "#{pane_current_path}" \
+  -w 75% \
+  -h 75% \
+  -E "bash"
+
+
