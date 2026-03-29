@@ -532,3 +532,7 @@ bind C-t display-popup \
   -E "bash"
 
 
+##### plugins
+set -g @plugin 'vndmp4/tmux-fzf-session-switch'
+
+
