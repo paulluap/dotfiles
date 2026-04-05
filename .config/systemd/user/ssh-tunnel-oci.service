@@ -1,0 +1,13 @@
+[Unit]
+Description=Description SSH OCI Tunnel (User-level)
+After=network-online.target
+Wants=network-online.target
+
+
+[Service]
+ExecStart=/usr/bin/autossh -M 0 -N -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -N -D 9050 oci
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target
