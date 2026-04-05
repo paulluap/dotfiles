@@ -1,7 +1,7 @@
 
-## The Bare Repository Method
+## How to use this -- The Bare Repository Method
 
-**Init**
+### Init
 
 This method treats your entire home directory as a potential workspace without Git "tracking" everything by default.
 
@@ -28,7 +28,7 @@ Step-by-Step Setup
     config push
     ```
 
-**clone**
+### Clone and Update
 
 ```
 # Create the repo as a bare clone in a hidden folder
@@ -44,6 +44,16 @@ config config --local status.showUntrackedFiles no
 config checkout
 ```
 
+**Post clone steps**
+
+- vim plug: https://github.com/junegunn/vim-plug
+
+    ```bash
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    ```
+
+
 **Updating Submodules**
 
 This repository includes a `.tmux` submodule. To update it to the latest version:
@@ -53,4 +63,29 @@ config submodule update --remote .tmux  #need --init option for fresh clone
 config add .tmux
 config commit -m "Update .tmux submodule"
 ```
+
+
+## Dev-setup
+
+### programming languages
+
+| programming language | dev sdk | script install |
+|----------------------|---------|-----------------------------------------|
+| java                 | [sdkman](https://sdkman.io/) | `curl -s "https://get.sdkman.io" | bash` |
+| python               | [uv](https://docs.astral.sh/uv/getting-started/installation) | `curl -LsSf https://astral.sh/uv/install.sh | sh` |
+| golang               | [go](https://go.dev/learn/)                                  |  |
+
+
+### tools
+
+| name | website | script install | 
+| ---- | ------- | -------------- |
+| docker | https://docs.docker.com/engine/install/ubuntu/ | `curl -fsSL https://get.docker.com -o get-docker.sh`
+| jq     |   | `apt install jq` |
+| lazygit  |   | `apt install lazygit` |
+| fzf      |   |  `apt install fzf` |
+| tmux     |   |  `apt install tmux` |
+| yazi     | https://yazi-rs.github.io/docs/installation/  |  `snap install yazi --classic` |
+| autossh |   | `apt install autossh` |
+
 
