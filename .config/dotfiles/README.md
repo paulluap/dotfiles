@@ -87,5 +87,7 @@ config commit -m "Update .tmux submodule"
 | tmux     |   |  `apt install tmux` |
 | yazi     | https://yazi-rs.github.io/docs/installation/  |  `snap install yazi --classic` |
 | autossh |   | `apt install autossh` |
+| coursier |  https://get-coursier.io/docs/cli-installation | `curl -fL "https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz" | gzip -d > cs; ./cs setup` |
+
 
 

@@ -1,0 +1,228 @@
+#!/usr/bin/env python3
+"""
+Robust SSH SOCKS Proxy with auto-reconnect on failures.
+Wraps OpenSSH subprocess for maximum compatibility.
+Equivalent to: ssh -D <port> <host> but with automatic recovery.
+
+Usage:
+    ssh-socks-proxy <host> -u <user> -p <port>
+
+    Or use SSH config alias:
+    ssh-socks-proxy <alias> -p <port>
+
+Examples:
+    ssh-socks-proxy myserver.com -u myuser -p 9050
+    ssh-socks-proxy oci -p 9050  # uses SSH config alias
+"""
+
+import subprocess
+import time
+import signal
+import sys
+import logging
+import re
+import select
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='[%(asctime)s] %(levelname)s: %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
+logger = logging.getLogger(__name__)
+
+# Default configuration
+DEFAULT_SOCKS_PORT = 9050
+DEFAULT_KEEPALIVE = 10
+RECONNECT_DELAY = 5
+
+# Patterns that indicate connection failure
+ERROR_PATTERNS = [
+    r'channel.*open failed',
+    r'channel.*failed',
+    r'Connection reset',
+    r'Connection closed',
+    r'Connection timed out',
+    r'Network is unreachable',
+    r'No route to host',
+]
+
+
+class SSHProxy:
+    def __init__(
+        self,
+        target: str,
+        socks_port: int = DEFAULT_SOCKS_PORT,
+        keepalive: int = DEFAULT_KEEPALIVE,
+        username: str | None = None,
+    ):
+        self.target = target
+        self.username = username
+        self.socks_port = socks_port
+        self.keepalive = keepalive
+        self.process: subprocess.Popen | None = None
+        self.running = False
+
+    def start(self) -> bool:
+        """Start SSH SOCKS proxy."""
+        # Build SSH target: user@host or just host (for SSH config aliases)
+        if self.username:
+            ssh_target = f"{self.username}@{self.target}"
+        else:
+            ssh_target = self.target
+
+        cmd = [
+            'ssh',
+            '-N',  # No remote command
+            '-D', str(self.socks_port),  # SOCKS proxy
+            '-o', f'ServerAliveInterval={self.keepalive}',
+            '-o', 'ServerAliveCountMax=3',
+            '-o', 'ExitOnForwardFailure=yes',
+            '-o', 'ConnectTimeout=30',
+            '-o', 'StrictHostKeyChecking=accept-new',  # Accept new hosts automatically
+            ssh_target
+        ]
+
+        logger.info(f"Starting SSH SOCKS proxy on port {self.socks_port}")
+        logger.debug(f"Command: {' '.join(cmd)}")
+
+        try:
+            self.process = subprocess.Popen(
+                cmd,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                bufsize=1,  # Line buffered
+            )
+            return True
+        except Exception as e:
+            logger.error(f"Failed to start SSH: {e}")
+            return False
+
+    def monitor(self):
+        """Monitor SSH process and detect failures."""
+        if not self.process:
+            return
+
+        # Read stderr for error messages
+        while self.running and self.process.poll() is None:
+            try:
+                # Read line from stderr with timeout
+                readable, _, _ = select.select([self.process.stderr], [], [], 1.0)
+                if readable:
+                    line = self.process.stderr.readline()
+                    if line:
+                        line = line.strip()
+                        if line:
+                            logger.info(f"SSH: {line}")
+
+                            # Check for fatal errors
+                            for pattern in ERROR_PATTERNS:
+                                if re.search(pattern, line, re.IGNORECASE):
+                                    logger.warning(f"Detected connection error, restarting...")
+                                    return
+            except Exception as e:
+                logger.debug(f"Monitor error: {e}")
+                break
+
+    def run(self):
+        """Main loop with auto-reconnect."""
+        self.running = True
+
+        while self.running:
+            if not self.start():
+                logger.info(f"Retrying in {RECONNECT_DELAY} seconds...")
+                time.sleep(RECONNECT_DELAY)
+                continue
+
+            # Monitor the connection
+            self.monitor()
+
+            # Check if we should stop
+            if not self.running:
+                break
+
+            # Connection lost, clean up and reconnect
+            self.stop()
+
+            logger.info(f"Reconnecting in {RECONNECT_DELAY} seconds...")
+            time.sleep(RECONNECT_DELAY)
+
+    def stop(self):
+        """Stop the SSH process."""
+        if self.process:
+            try:
+                self.process.terminate()
+                self.process.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                self.process.kill()
+                self.process.wait()
+            except Exception:
+                pass
+            self.process = None
+
+    def shutdown(self):
+        """Graceful shutdown."""
+        logger.info("Shutting down...")
+        self.running = False
+        self.stop()
+
+
+def signal_handler(signum, frame):
+    """Handle interrupt signals."""
+    global proxy
+    if proxy:
+        proxy.shutdown()
+    sys.exit(0)
+
+
+def main():
+    global proxy
+
+    import argparse
+    parser = argparse.ArgumentParser(
+        description='SSH SOCKS Proxy with auto-reconnect',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog='''
+Examples:
+  %(prog)s myserver.com -u myuser -p 9050
+  %(prog)s oci -p 9050                    # uses SSH config alias
+  %(prog)s user@host -p 1080              # inline user@host format
+'''
+    )
+    parser.add_argument('target', help='SSH server host or SSH config alias (can be user@host format)')
+    parser.add_argument('-u', '--user', help='SSH username (optional if using SSH config alias or user@host format)')
+    parser.add_argument('-p', '--port', type=int, default=DEFAULT_SOCKS_PORT, help=f'Local SOCKS port (default: {DEFAULT_SOCKS_PORT})')
+    parser.add_argument('-k', '--keepalive', type=int, default=DEFAULT_KEEPALIVE, help=f'Keepalive interval in seconds (default: {DEFAULT_KEEPALIVE})')
+    parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
+    args = parser.parse_args()
+
+    if args.verbose:
+        logging.getLogger().setLevel(logging.DEBUG)
+
+    # Parse target - check if it contains @ (user@host format)
+    target = args.target
+    username = args.user
+
+    if '@' in target and not username:
+        # user@host format specified inline
+        parts = target.split('@', 1)
+        username = parts[0]
+        target = parts[1]
+
+    proxy = SSHProxy(
+        target=target,
+        username=username,
+        socks_port=args.port,
+        keepalive=args.keepalive,
+    )
+
+    signal.signal(signal.SIGINT, signal_handler)
+    signal.signal(signal.SIGTERM, signal_handler)
+
+    proxy.run()
+
+
+if __name__ == '__main__':
+    proxy = None
+    main()

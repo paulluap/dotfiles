@@ -1,0 +1,23 @@
+#!/bin/bash
+# Simple proxy wrapper - route command through SOCKS proxy
+# Usage: px [port] <command...>
+#   px curl google.com          # use default port 9050
+#   px 9051 curl google.com     # use port 9051
+
+DEFAULT_PORT=9051
+
+if [[ "$1" =~ ^[0-9]+$ ]]; then
+    PORT="$1"
+    shift
+else
+    PORT="$DEFAULT_PORT"
+fi
+
+if [[ $# -eq 0 ]]; then
+    echo "Usage: px [port] <command...>"
+    echo "  px curl google.com        # use port $DEFAULT_PORT"
+    echo "  px 9051 curl google.com   # use port 9051"
+    exit 1
+fi
+
+proxychains -q -f <(echo -e "strict_chain\nproxy_dns\n[ProxyList]\nsocks5 127.0.0.1 $PORT") "$@"

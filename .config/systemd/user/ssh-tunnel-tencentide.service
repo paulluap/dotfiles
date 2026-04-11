@@ -1,11 +1,11 @@
 [Unit]
-Description=SSH OCI SOCKS Tunnel (User-level)
+Description=SSH Tencent IDE SOCKS Tunnel (User-level)
 After=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=simple
-ExecStart=%h/.local/bin/ssh-socks-proxy oci -p 9050
+ExecStart=%h/.local/bin/ssh-socks-proxy mcazaq -p 9051
 Restart=always
 RestartSec=5
 
