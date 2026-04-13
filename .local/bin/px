@@ -20,4 +20,12 @@ if [[ $# -eq 0 ]]; then
     exit 1
 fi
 
-proxychains -q -f <(echo -e "strict_chain\nproxy_dns\n[ProxyList]\nsocks5 127.0.0.1 $PORT") "$@"
+# Create a temp config file (process substitution doesn't work with subprocesses like git)
+TMP_CONF=$(mktemp)
+echo -e "strict_chain\nproxy_dns\n[ProxyList]\nsocks5 127.0.0.1 $PORT" > "$TMP_CONF"
+
+proxychains -q -f "$TMP_CONF" "$@"
+RET=$?
+
+rm -f "$TMP_CONF"
+exit $RET

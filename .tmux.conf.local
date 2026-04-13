@@ -527,7 +527,7 @@ bind n next-window
 # Display Popups
 bind C-t display-popup \
   -d "#{pane_current_path}" \
-  -w 75% \
+  -w 40% \
   -h 75% \
   -E "bash"
 
