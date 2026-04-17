@@ -1,7 +1,7 @@
 ---
-name: answer
+name: ask
 version: 1.0.0
-description: "Short answer mode: Answer all questions briefly in short form, do not perform any side effect actions (read actions are always permitted)."
+description: "Short answer mode: Answer questions briefly in short form, do not perform any side effect actions (read actions are always permitted)."
 ---
 
 # Short Answer Mode (v1)
