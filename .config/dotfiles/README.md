@@ -78,16 +78,19 @@ config commit -m "Update .tmux submodule"
 
 ### tools
 
-| name | website | script install | 
-| ---- | ------- | -------------- |
-| docker | https://docs.docker.com/engine/install/ubuntu/ | `curl -fsSL https://get.docker.com -o get-docker.sh`
-| jq     |   | `apt install jq` |
-| lazygit  |   | `apt install lazygit` |
-| fzf      |   |  `apt install fzf` |
-| tmux     |   |  `apt install tmux` |
-| yazi     | https://yazi-rs.github.io/docs/installation/  |  `snap install yazi --classic` |
-| autossh |   | `apt install autossh` |
-| coursier |  https://get-coursier.io/docs/cli-installation | `curl -fL "https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz" | gzip -d > cs; ./cs setup` |
+| name     | website                                         | script install | 
+| ------   | ----------------------------------------------- | -------------- |
+| docker   | https://docs.docker.com/engine/install/ubuntu/  | `curl -fsSL https://get.docker.com -o get-docker.sh`
+| jq       |                                                 | `apt install jq` |
+| lazygit  |                                                 | `apt install lazygit` |
+| fzf      |                                                 | `apt install fzf` |
+| tmux     |                                                 | `apt install tmux` |
+| yazi     | https://yazi-rs.github.io/docs/installation/    | `snap install yazi --classic` |
+| autossh  |                                                 | `apt install autossh` |
+| coursier | https://get-coursier.io/docs/cli-installation   | `curl -fL "https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz" | gzip -d > cs; ./cs setup` |
+| starship | https://github.com/starship/starship, https://starship.rs/presets/ | `curl -sS https://starship.rs/install.sh | sh` |
+| eza      | https://github.com/eza-community/eza/blob/main/INSTALL.md | 
+
 
 
 
