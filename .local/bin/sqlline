@@ -5,6 +5,7 @@ cs launch \
     org.postgresql:postgresql:42.7.7 \
     com.oracle.database.jdbc:ojdbc11:23.8.0.25.04 \
     com.yashandb:yashandb-jdbc:1.9.24 \
+    com.dameng:DmJdbcDriver18:8.1.2.79 \
 -M sqlline.SqlLine -- "$@"
 
 
