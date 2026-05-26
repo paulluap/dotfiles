@@ -103,5 +103,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 
+Plug 'wellle/context.vim'
+
 call plug#end()
 
