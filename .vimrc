@@ -29,8 +29,8 @@ set splitright
 " Better netrw
 let g:netrw_liststyle = 3  " tree
 let g:netrw_banner = 0
-let g:netrw_winsize = 25
-"let g:netrw_browse_split = 4 "1. new horizontal, 2. new vertical, 3. new tab, 4. prev window
+let g:netrw_winsize = -30
+let g:netrw_browse_split = 4 "1. new horizontal, 2. new vertical, 3. new tab, 4. prev window
 inoremap <c-b> <Esc>:Lex<cr>
 nnoremap <c-b> <Esc>:Lex<cr>
 

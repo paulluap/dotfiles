@@ -17,6 +17,6 @@
 
 * use context7 to search for dev related doc
 * you may want to use github.com to explore the sourcefile as the source of truth
-* if access to some web content is resitricuted, try proxychains
+* if access to some web content is resitricuted (github, google), try proxychains
     * example: `proxychains -q  curl -L https://raw.githubusercontent.com/yt-dlp/yt-dlp/refs/heads/master/README.md` 
 
