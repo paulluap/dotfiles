@@ -1,8 +1,8 @@
+## Init
 
-## How to use this -- The Bare Repository Method
+This repo is already initialized, if you are interested in how it is done:
 
-### Init
-
+<details> <summary> init steps</summary>
 This method treats your entire home directory as a potential workspace without Git "tracking" everything by default.
 
 Step-by-Step Setup
@@ -27,7 +27,9 @@ Step-by-Step Setup
     config push
     ```
 
-### Clone and Update
+</details>
+
+## Clone and Update
 
 ```bash
 # Create the repo as a bare clone in a hidden folder
@@ -43,19 +45,23 @@ config config --local status.showUntrackedFiles no
 config checkout
 ```
 
-**Post clone steps**
+### Post Clone 
 
-- vim plug: https://github.com/junegunn/vim-plug
+#### vim plug
 
-    ```bash
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    ```
+https://github.com/junegunn/vim-plug
+
+```bash
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+```
 
 
-**Updating Submodules**
+#### tmux config
 
-This repository includes a `.tmux` submodule. 
+https://github.com/gpakosz/.tmux
+> Oh my tmux! My self-contained, pretty & versatile tmux configuration made with 💛🩷💙🖤❤️🤍
+
 
 first time init 
 
@@ -66,15 +72,55 @@ config submodule --init
 To update it to the latest version:
 
 ```
-config submodule update --remote .tmux  #need --init option for fresh clone 
+config submodule update --remote .tmux  
 config add .tmux
 config commit -m "Update .tmux submodule"
 ```
 
 
-## Dev-setup
+#### User-level systemd services
 
-### Programming languages
+Custom service files live in `~/.config/systemd/user/`. These run under the user instance of systemd (no `sudo` needed).
+
+
+**Enable a service** (start now + start on login):
+
+```bash
+systemctl --user enable --now <service>
+```
+
+**Disable a service**:
+
+```bash
+systemctl --user disable --now <service>
+```
+
+**Check status**:
+
+```bash
+systemctl --user status <service>
+```
+
+**View logs**:
+
+```bash
+journalctl --user -u <service> -f
+```
+
+**After adding a new .service file**, reload the daemon first:
+
+```bash
+systemctl --user daemon-reload
+```
+
+
+
+
+
+
+## Dev Setup
+
+### Programming Languages
 
 | programming language | dev sdk | script install |
 |----------------------|---------|-----------------------------------------|
@@ -99,8 +145,5 @@ config commit -m "Update .tmux submodule"
 | starship | https://github.com/starship/starship, https://starship.rs/presets/ | `curl -sS https://starship.rs/install.sh \| sh`                                             |
 | eza      | https://github.com/eza-community/eza/blob/main/INSTALL.md |                                                                                                      |
 | claude   | https://www.volcengine.com/docs/82379/1928261?lang=zh | `npm install -g @anthropic-ai/claude-code`                                                               |
-| bun      | curl -fsSL https://bun.com/install | bash  
-
-
-
+| bun      | curl -fsSL https://bun.com/install | bash
 
