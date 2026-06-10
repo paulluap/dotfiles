@@ -1,17 +1,17 @@
-
-""" settings
-"let g:solarized_termcolors=256
-"colorscheme desert
-
-syntax on               " syntax highlighting
-
-" Show line numbers
+" lines
 set number
 set relativenumber
+"set cursorline          " hightlight curent line
 
+" clean and distraction free
 set nobackup            " do not keep backup files, it's 70's style cluttering
 set nowb
 set noswapfile
+set history=100         " keep 100 lines of history
+set viminfo='20,\"80            " read/write a .viminfo file, don't store more
+                                "    than 80 lines of registers
+set visualbell                  " don't beep
+set noerrorbells                " don't beep
 
 " Search improvements
 set hlsearch
@@ -28,28 +28,29 @@ let g:netrw_banner = 0
 let g:netrw_winsize = -30
 let g:netrw_browse_split = 4 "1. new horizontal, 2. new vertical, 3. new tab, 4. prev window
 
+" editing 
 set expandtab           " expand tabs to spaces by default
 set shiftwidth=4        " number of spaces to use for autoindenting
 set tabstop=4           " a tab is four space
-
-"set cursorline          " hightlight curent line
-
-set t_Co=256            " iTerm2 supports 256 color mode.
-set history=100         " keep 100 lines of history
-if !has('nvim')
-  set fillchars=vert:\    " remove vertical dashed bar
-endif
- 
 set autoindent          " always set autoindenting on
 set copyindent          " copy the previous indentation on autoindenting
 
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType typescript setl sw=2 sts=2 et
+autocmd FileType javascript setl sw=2 sts=2 et
+autocmd FileType xml setl sw=2 sts=2 et
+autocmd FileType html setl sw=2 sts=2 et
 
-set viminfo='20,\"80            " read/write a .viminfo file, don't store more
-                                "    than 80 lines of registers
+" look 
+"let g:solarized_termcolors=256
+"colorscheme desert
+syntax on               " syntax highlighting
+set t_Co=256            " iTerm2 supports 256 color mode.
+if !has('nvim')
+  set fillchars=vert:\    " remove vertical dashed bar
+endif
 
-set visualbell                  " don't beep
-set noerrorbells                " don't beep
-
+" ???
 set wildmenu                    " make tab completion for files/buffers act like bash
 set wildignore=*.swp,*.bak,*.pyc,*.class
 
@@ -59,11 +60,6 @@ endif
 
 set shortmess-=F       "required by https://github.com/scalameta/nvim-metals
 
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-autocmd FileType typescript setl sw=2 sts=2 et
-autocmd FileType javascript setl sw=2 sts=2 et
-autocmd FileType xml setl sw=2 sts=2 et
-autocmd FileType html setl sw=2 sts=2 et
 
 """ custom functions
 function! IsGitRepo()
@@ -72,14 +68,12 @@ function! IsGitRepo()
 endfunction
 let s:is_git_repo = IsGitRepo()
 
-""" basic shortcuts
+""" shortcuts
 nnoremap <c-h> :bprevious<cr>
 nnoremap <c-l> :bnext<cr>
+command! BD enew|bd #
 
-" Alt-w 作为 Ctrl-w 的别名，用于分屏操作等
-nnoremap <A-w> <C-w>
-
-""" vim plug
+""" plugins: vim-plug
 call plug#begin()
 
 if exists('$ENABLE_COC') && $ENABLE_COC != '0'
