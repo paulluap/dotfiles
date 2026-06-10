@@ -1,11 +1,7 @@
 
 """ settings
-let g:solarized_termcolors=256
+"let g:solarized_termcolors=256
 "colorscheme desert
-
-set t_Co=256            " iTerm2 supports 256 color mode.
-set history=100         " keep 100 lines of history
-
 
 syntax on               " syntax highlighting
 
@@ -31,8 +27,6 @@ let g:netrw_liststyle = 3  " tree
 let g:netrw_banner = 0
 let g:netrw_winsize = -30
 let g:netrw_browse_split = 4 "1. new horizontal, 2. new vertical, 3. new tab, 4. prev window
-inoremap <c-b> <Esc>:Lex<cr>
-nnoremap <c-b> <Esc>:Lex<cr>
 
 set expandtab           " expand tabs to spaces by default
 set shiftwidth=4        " number of spaces to use for autoindenting
@@ -42,7 +36,9 @@ set tabstop=4           " a tab is four space
 
 set t_Co=256            " iTerm2 supports 256 color mode.
 set history=100         " keep 100 lines of history
-set fillchars=vert:\    " remove vertical dashed bar
+if !has('nvim')
+  set fillchars=vert:\    " remove vertical dashed bar
+endif
  
 set autoindent          " always set autoindenting on
 set copyindent          " copy the previous indentation on autoindenting
@@ -57,7 +53,9 @@ set noerrorbells                " don't beep
 set wildmenu                    " make tab completion for files/buffers act like bash
 set wildignore=*.swp,*.bak,*.pyc,*.class
 
-set re=0                " without this, open ts is slow ...
+if !has('nvim')
+  set re=0                " without this, open ts is slow in Vim
+endif
 
 set shortmess-=F       "required by https://github.com/scalameta/nvim-metals
 
@@ -102,7 +100,7 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-
+Plug 'preservim/nerdtree'
 Plug 'wellle/context.vim'
 
 call plug#end()

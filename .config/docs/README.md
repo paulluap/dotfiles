@@ -122,28 +122,29 @@ systemctl --user daemon-reload
 
 ### Programming Languages
 
-| programming language | dev sdk | script install |
+| programming language | dev sdk | script install | update operation | 
 |----------------------|---------|-----------------------------------------|
 | java                 | [sdkman](https://sdkman.io/) | `curl -s "https://get.sdkman.io" \| bash` |
 | python               | [uv](https://docs.astral.sh/uv/getting-started/installation) | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
 | golang               | [go](https://go.dev/learn/)                                  |  |
 | javascript           | [nvm](https://github.com/nvm-sh/nvm)                         | `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh \| bash` |
+|                      | [bun](https://bun.com/docs/installation)                     | `curl -fsSL https://bun.com/install | bash`                                   |
+| rust                 | [rustc](https://rust-lang.org/tools/install/)                | `(curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh)`            | `rustup update` |
 
 
 ### Tools (terminal)
 
-| name     | website                                         | script install                                                                                                 | 
-| ------   | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| docker   | https://docs.docker.com/engine/install/ubuntu/  | `curl -fsSL https://get.docker.com -o get-docker.sh`                                                           |
-| jq       |                                                 | `apt install jq`                                                                                               |
-| lazygit  |                                                 | `apt install lazygit`                                                                                          |
-| fzf      |                                                 | `apt install fzf`                                                                                              |
-| tmux     |                                                 | `apt install tmux`                                                                                             |
-| yazi     | https://yazi-rs.github.io/docs/installation/    | `snap install yazi --classic`                                                                                  |
-| autossh  |                                                 | `apt install autossh`                                                                                          |
+| name     | website                                         | script install                                                                                                  | 
+| ------   | ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| docker   | https://docs.docker.com/engine/install/ubuntu/  | `curl -fsSL https://get.docker.com -o get-docker.sh`                                                            |
+| jq       |                                                 | `apt install jq`                                                                                                |
+| lazygit  |                                                 | `apt install lazygit`                                                                                           |
+| fzf      |                                                 | `apt install fzf`                                                                                               |
+| tmux     |                                                 | `apt install tmux`                                                                                              |
+| yazi     | https://yazi-rs.github.io/docs/installation/    | `snap install yazi --classic`                                                                                   |
+| autossh  |                                                 | `apt install autossh`                                                                                           |
 | coursier | https://get-coursier.io/docs/cli-installation   | `curl -fL "https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz" \| gzip -d > cs; ./cs setup` |
-| starship | https://github.com/starship/starship, https://starship.rs/presets/ | `curl -sS https://starship.rs/install.sh \| sh`                                             |
-| eza      | https://github.com/eza-community/eza/blob/main/INSTALL.md |                                                                                                      |
-| claude   | https://www.volcengine.com/docs/82379/1928261?lang=zh | `npm install -g @anthropic-ai/claude-code`                                                               |
-| bun      | curl -fsSL https://bun.com/install | bash
+| starship | https://github.com/starship/starship, https://starship.rs/presets/ | `curl -sS https://starship.rs/install.sh \| sh`                                              |
+| eza      | https://github.com/eza-community/eza/blob/main/INSTALL.md |                                                                                                       |
+| claude   | https://www.volcengine.com/docs/82379/1928261?lang=zh | `npm install -g @anthropic-ai/claude-code`                                                                |
 

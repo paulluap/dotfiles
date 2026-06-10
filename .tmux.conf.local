@@ -535,9 +535,11 @@ bind C-t display-popup \
 ##### plugins
 set -g @plugin 'vndmp4/tmux-fzf-session-switch'
 set -g @fzf-goto-session 's'
+set -g @fzf-goto-session-only true
 
 # Unset pane indicator color override to restore tmux defaults
 set -gu display-panes-colour
 set -gu display-panes-active-colour
 
+set-option -g detach-on-destroy off
 
