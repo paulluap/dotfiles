@@ -1,9 +1,11 @@
+-- reuse vim plugin
 vim.cmd([[
   set runtimepath^=~/.vim runtimepath+=~/.vim/after
   let &packpath = &runtimepath
   source ~/.vimrc
 ]])
 
+-- LSP
 vim.pack.add({
   {
     src = 'https://github.com/JavaHello/spring-boot.nvim',
@@ -33,3 +35,11 @@ vim.lsp.config('jdtls', {
     }
   }
 })
+
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic location list' })
+
+-- LSP outline 
+vim.pack.add({
+    { src = 'https://github.com/simrat39/symbols-outline.nvim' }
+})
+require("symbols-outline").setup()
