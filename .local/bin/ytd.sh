@@ -24,4 +24,4 @@ mkdir "${title}"
 (cd "${title}" && yt-dlp -f "bv*[height<=480]+ba/b[height<=480]" --write-subs \
     --write-thumbnail --convert-thumbnails png \
     --merge-output-format mp4 \
-    --sub-format srt --proxy socks5://127.0.0.1:4781 "$url")
+    --sub-format srt --proxy socks5://127.0.0.1:$pp "$url")

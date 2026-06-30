@@ -31,3 +31,6 @@ fi
 
 export EDITOR=vim
 
+
+alias encrypt='openssl aes256 -pbkdf2 -a -A'
+alias decrypt='openssl aes256 -pbkdf2 -a -A -d'

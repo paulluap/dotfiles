@@ -3,6 +3,7 @@
     email=taotao.nov@gmail.com
 [core]
     editor=vim
+    pager = delta
 [alias]
     # Shortcuts
     st = status
@@ -17,3 +18,19 @@
     # Better diff algorithm (more readable)
     algorithm = histogram
     
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    dark = true      # or light = true, or omit for auto-detection
+
+[merge]
+    conflictStyle = zdiff3
