@@ -3,7 +3,7 @@
     email=taotao.nov@gmail.com
 [core]
     editor=vim
-    pager = delta
+    #pager = delta
 [alias]
     # Shortcuts
     st = status
