@@ -13,11 +13,12 @@ alwaysApply: true
 * Java: SDKMAN is pre-installed; use it to get the correct jdk version
 * cousier: this more effecient than maven, use this to quickly find maven denpendencies, show dependency trees or run tools in maven repository 
     * `cs resolve -t com.google.guava:guava:33.6.0-jre`: show the dependency tree for the guava 33 library
-* tmux: when the user refers to a tmux pane x, you should prefer tmux operations to accomplish the work
-    * `tmux capture-pane -t x` : capture what's in pane x, (use the `-S -n` option to capture last n lines of scrolled-out content
-    * `tmux send-keys -t x "..." Enter`: execute the cmd in pane x
-
-    note you are already in the tmux session, so `-t x` is enough to refer to pane x
+* tmux: when the user refers to a tmux pane x, 
+    * Prefer tmux operations to accomplish the work
+        * `tmux capture-pane -t x` : capture what's in pane x, (use the `-S -n` option to capture last n lines of scrolled-out content
+        * `tmux send-keys -t x "..." Enter`: execute the cmd in pane x
+    * In this case, we are already in the tmux session, so `-t x` is enough to refer to pane x
+    * When to apply: when the user explicitly refers to a tmux pane (otherwise never touch any tmux session)
 
 ## Search guide
 

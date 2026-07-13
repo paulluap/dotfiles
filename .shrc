@@ -36,3 +36,17 @@ alias encrypt='openssl aes256 -pbkdf2 -a -A'
 alias decrypt='openssl aes256 -pbkdf2 -a -A -d'
 
 alias agent='ln -s ~/.claude/CLAUDE.md AGENTS.md > /dev/null 2>&1; agent'
+
+function proxyEnv {
+    local port=${1:-7897}
+    export http_proxy="http://127.0.0.1:${port}"
+    export https_proxy="http://127.0.0.1:${port}"
+    export HTTP_PROXY="$http_proxy"
+    export HTTPS_PROXY="$https_proxy"
+    case ",${no_proxy-}," in
+        *,localhost,127.0.0.1,*) ;;
+        *) export no_proxy="localhost,127.0.0.1${no_proxy:+,$no_proxy}" ;;
+    esac
+    export NO_PROXY="$no_proxy"
+    echo "http(s)_proxy=${http_proxy}, no_proxy=${no_proxy}"
+}
