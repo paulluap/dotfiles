@@ -37,16 +37,42 @@ alias decrypt='openssl aes256 -pbkdf2 -a -A -d'
 
 alias agent='ln -s ~/.claude/CLAUDE.md AGENTS.md > /dev/null 2>&1; agent'
 
+# Usage:
+#   proxyEnv                 # export proxy into current shell (port 7897)
+#   proxyEnv 8080            # export with custom port
+#   proxyEnv myprogram ...   # run command with proxy env
+#   proxyEnv 8080 cmd ...    # run command with custom port
 function proxyEnv {
-    local port=${1:-7897}
-    export http_proxy="http://127.0.0.1:${port}"
-    export https_proxy="http://127.0.0.1:${port}"
-    export HTTP_PROXY="$http_proxy"
-    export HTTPS_PROXY="$https_proxy"
+    local port=7897
+    if [ "${1-}" -eq "${1-}" ] 2>/dev/null; then
+        port=$1
+        shift
+    fi
+
+    local _http_proxy="http://127.0.0.1:${port}"
+    local _https_proxy="$_http_proxy"
+    local _no_proxy
     case ",${no_proxy-}," in
-        *,localhost,127.0.0.1,*) ;;
-        *) export no_proxy="localhost,127.0.0.1${no_proxy:+,$no_proxy}" ;;
+        *,localhost,127.0.0.1,*) _no_proxy="${no_proxy}" ;;
+        *) _no_proxy="localhost,127.0.0.1${no_proxy:+,$no_proxy}" ;;
     esac
-    export NO_PROXY="$no_proxy"
-    echo "http(s)_proxy=${http_proxy}, no_proxy=${no_proxy}"
+
+    if [ $# -eq 0 ]; then
+        export http_proxy="$_http_proxy"
+        export https_proxy="$_https_proxy"
+        export HTTP_PROXY="$_http_proxy"
+        export HTTPS_PROXY="$_https_proxy"
+        export no_proxy="$_no_proxy"
+        export NO_PROXY="$_no_proxy"
+        echo "http(s)_proxy=${http_proxy}, no_proxy=${no_proxy}"
+        return 0
+    fi
+
+    http_proxy="$_http_proxy" \
+    https_proxy="$_https_proxy" \
+    HTTP_PROXY="$_http_proxy" \
+    HTTPS_PROXY="$_https_proxy" \
+    no_proxy="$_no_proxy" \
+    NO_PROXY="$_no_proxy" \
+    "$@"
 }

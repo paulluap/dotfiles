@@ -3,15 +3,17 @@ description: "global rule"
 alwaysApply: true
 ---
 
-## Behavior guide
+## General Guidelines
 
-* Do not perform git commits automatically; leave commit operations to the user
+* Do not perform git commits automatically; leave commit operations to the user.
+* When making technical decisions, do not give much weight to development cost. 
+  Instead, prefer quality, simplicity, robustness, scalability, and long term maintainability.
 
 ## Dev tool guide
 
 * Python: Always use `uv` to manage Python environments and run Python commands
 * Java: SDKMAN is pre-installed; use it to get the correct jdk version
-* cousier: this more effecient than maven, use this to quickly find maven denpendencies, show dependency trees or run tools in maven repository 
+* cousier: more effecient than maven, use this to quickly find maven denpendencies, show dependency trees or run tools in maven repository 
     * `cs resolve -t com.google.guava:guava:33.6.0-jre`: show the dependency tree for the guava 33 library
 * tmux: when the user refers to a tmux pane x, 
     * Prefer tmux operations to accomplish the work
