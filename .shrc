@@ -42,9 +42,10 @@ alias agent='ln -s ~/.claude/CLAUDE.md AGENTS.md > /dev/null 2>&1; agent'
 #   proxyEnv 8080            # export with custom port
 #   proxyEnv myprogram ...   # run command with proxy env
 #   proxyEnv 8080 cmd ...    # run command with custom port
-function proxyEnv {
-    local port=7897
-    if [ "${1-}" -eq "${1-}" ] 2>/dev/null; then
+function proxy_env {
+    local port=8888
+    # if it is number 
+    if [[ "${1-}" =~ ^-?[0-9]+$ ]] && (( $1 >= 1 && $1 <= 65535 )); then
         port=$1
         shift
     fi
@@ -75,4 +76,9 @@ function proxyEnv {
     no_proxy="$_no_proxy" \
     NO_PROXY="$_no_proxy" \
     "$@"
+}
+
+function unproxy_env {
+    unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY no_proxy NO_PROXY
+    echo "Proxy variables unset."
 }

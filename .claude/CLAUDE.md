@@ -8,6 +8,7 @@ alwaysApply: true
 * Do not perform git commits automatically; leave commit operations to the user.
 * When making technical decisions, do not give much weight to development cost. 
   Instead, prefer quality, simplicity, robustness, scalability, and long term maintainability.
+* When writing tests, real implementation should be preferred over a test double. (Book: Software Engineering at Google)
 
 ## Dev tool guide
 

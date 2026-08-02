@@ -147,4 +147,5 @@ systemctl --user daemon-reload
 | starship | https://github.com/starship/starship, https://starship.rs/presets/ | `curl -sS https://starship.rs/install.sh \| sh`                                              |
 | eza      | https://github.com/eza-community/eza/blob/main/INSTALL.md |                                                                                                       |
 | claude   | https://www.volcengine.com/docs/82379/1928261?lang=zh | `npm install -g @anthropic-ai/claude-code`                                                                |
+| sqlline  | https://github.com/julianhyde/sqlline           | (`~/.local/bin/sqlline`)                                                                                        | 
 
