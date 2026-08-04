@@ -1,7 +1,29 @@
 [keys]
 split_horizontal = ['prefix+"', "prefix-minus"]
 split_vertical = ["prefix+%", "prefix+v"]
+navigate_workspace_up = ["k"]
+navigate_workspace_down = ["j"]
+
+[ui]
+prompt_new_workspace_name = true
+pane_gaps = false
+
+[[keys.command]]
+key = "prefix+ctrl+t"
+type = "popup"
+command = "bash"        # or "zsh", "fish", etc.
+width = "60%"          # optional: percentage or cell count
+height = "80%"         # optional: percentage or cell count
+
+[terminal]
+allow_passthrough = true
+
 
 [experimental]
 pane_history = false
 switch_ascii_input_source_in_prefix = false
+kitty_graphics = true
+    
+[theme]
+name = "catppuccin"
+auto_switch = false
