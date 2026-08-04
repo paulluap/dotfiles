@@ -1,0 +1,7 @@
+[keys]
+split_horizontal = ['prefix+"', "prefix-minus"]
+split_vertical = ["prefix+%", "prefix+v"]
+
+[experimental]
+pane_history = false
+switch_ascii_input_source_in_prefix = false

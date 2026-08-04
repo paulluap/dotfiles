@@ -134,7 +134,7 @@ systemctl --user daemon-reload
 
 ### Tools (terminal)
 
-| name     | website                                         | script install                                                                                                  | 
+| name     | website                                         | install                                                                                                         | 
 | ------   | ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
 | docker   | https://docs.docker.com/engine/install/ubuntu/  | `curl -fsSL https://get.docker.com -o get-docker.sh`                                                            |
 | jq       |                                                 | `apt install jq`                                                                                                |
@@ -148,4 +148,5 @@ systemctl --user daemon-reload
 | eza      | https://github.com/eza-community/eza/blob/main/INSTALL.md |                                                                                                       |
 | claude   | https://www.volcengine.com/docs/82379/1928261?lang=zh | `npm install -g @anthropic-ai/claude-code`                                                                |
 | sqlline  | https://github.com/julianhyde/sqlline           | (`~/.local/bin/sqlline`)                                                                                        | 
+| herdr    | https://herdr.dev/                              |  `curl -fsSL https://herdr.dev/install.sh | sh`                                                                 |
 
