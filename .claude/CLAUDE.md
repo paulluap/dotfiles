@@ -22,6 +22,12 @@ alwaysApply: true
         * `tmux send-keys -t x "..." Enter`: execute the cmd in pane x
     * In this case, we are already in the tmux session, so `-t x` is enough to refer to pane x
     * When to apply: when the user explicitly refers to a tmux pane (otherwise never touch any tmux session)
+* Herdr: when the user refers to a Herdr pane x,
+    * Prefer Herdr operations to accomplish the work
+        * `herdr pane read x --source recent-unwrapped --lines 120`: capture recent output from pane x
+        * `herdr pane run x "..."`: execute a command in pane x
+    * Identify the current pane with `herdr pane current --current` or `$HERDR_PANE_ID`; list panes with `herdr pane list --workspace "$HERDR_WORKSPACE_ID"`
+    * When to apply: only when the user explicitly refers to a Herdr pane (otherwise never inspect or control any Herdr session)
 
 ## Search guide
 
@@ -29,4 +35,3 @@ alwaysApply: true
 * you may want to use github.com to explore the sourcefile as the source of truth
 * if access to some web content is resitricuted (github, google), try proxychains
     * example: `proxychains -q  curl -L https://raw.githubusercontent.com/yt-dlp/yt-dlp/refs/heads/master/README.md` 
-
