@@ -7,7 +7,7 @@ alwaysApply: true
 
 * Do not perform git commits automatically; leave commit operations to the user.
 * When making technical decisions, do not give much weight to development cost. 
-  Instead, prefer quality, simplicity, robustness, scalability, and long term maintainability.
+  Instead, prefer quality, simplicity, robustness, scalability, and long term maintainability. (since you are an AI with no time boundry).
 * When writing tests, real implementation should be preferred over a test double. (Book: Software Engineering at Google)
 
 ## Dev tool guide
@@ -26,6 +26,7 @@ alwaysApply: true
     * Prefer Herdr operations to accomplish the work
         * `herdr pane read x --source recent-unwrapped --lines 120`: capture recent output from pane x
         * `herdr pane run x "..."`: execute a command in pane x
+        * `herdr pane send-keys "..."`: send key presses to a pane 
     * Identify the current pane with `herdr pane current --current` or `$HERDR_PANE_ID`; list panes with `herdr pane list --workspace "$HERDR_WORKSPACE_ID"`
     * When to apply: only when the user explicitly refers to a Herdr pane (otherwise never inspect or control any Herdr session)
 
