@@ -6,6 +6,7 @@ cs launch \
     com.oracle.database.jdbc:ojdbc11:23.8.0.25.04 \
     com.yashandb:yashandb-jdbc:1.9.24 \
     com.dameng:DmJdbcDriver18:8.1.2.79 \
+    com.oceanbase:oceanbase-client:2.4.15 \
 -M sqlline.SqlLine -- "$@"
 
 

@@ -536,6 +536,8 @@ bind C-t display-popup \
 set -g @plugin 'vndmp4/tmux-fzf-session-switch'
 set -g @fzf-goto-session 's'
 set -g @fzf-goto-session-only true
+# set -g @plugin 'hiroppy/tmux-agent-sidebar'
+
 
 # Unset pane indicator color override to restore tmux defaults
 set -gu display-panes-colour
