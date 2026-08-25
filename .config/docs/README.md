@@ -151,5 +151,6 @@ systemctl --user daemon-reload
 | herdr    | https://herdr.dev/                                                 |  `curl -fsSL https://herdr.dev/install.sh \| sh`                                                                |
 | entr     | https://github.com/eradman/entr                                    | `apt install entr`                                                                                              |
 | ncdu     |                                                                    | `apt install entr`                                                                                              |
+| poppler-utils | https://github.com/elswork/poppler-utils                      | `sudo apt install poppler-utils`                                                                                |
 
 

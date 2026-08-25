@@ -52,11 +52,11 @@ function proxy_env {
 
     local _http_proxy="http://127.0.0.1:${port}"
     local _https_proxy="$_http_proxy"
-    local _no_proxy
-    case ",${no_proxy-}," in
-        *,localhost,127.0.0.1,*) _no_proxy="${no_proxy}" ;;
-        *) _no_proxy="localhost,127.0.0.1${no_proxy:+,$no_proxy}" ;;
-    esac
+    local _no_proxy="localhost,127.0.0.1,::1,10.0.0.0/8,192.168.0.0/16" 
+    #case ",${no_proxy-}," in
+    #    *,localhost,127.0.0.1,*) _no_proxy="${no_proxy}" ;;
+    #    *) _no_proxy="localhost,127.0.0.1${no_proxy:+,$no_proxy}" ;;
+    #esac
 
     if [ $# -eq 0 ]; then
         export http_proxy="$_http_proxy"
@@ -81,4 +81,19 @@ function proxy_env {
 function unproxy_env {
     unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY no_proxy NO_PROXY
     echo "Proxy variables unset."
+}
+
+function use_java8 {
+    export JAVA_HOME=${HOME}/.sdkman/candidates/java/8.0.442-tem
+    export PATH="${JAVA_HOME}/bin:${PATH}"
+}
+
+function use_java17 {
+    export JAVA_HOME=${HOME}/.sdkman/candidates/java/17.0.14-tem
+    export PATH="${JAVA_HOME}/bin:${PATH}"
+}
+
+function use_java21 {
+    export JAVA_HOME=${HOME}/.sdkman/candidates/java/21.0.7-tem
+    export PATH="${JAVA_HOME}/bin:${PATH}"
 }

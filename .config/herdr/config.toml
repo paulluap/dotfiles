@@ -5,7 +5,7 @@ navigate_workspace_up = ["k"]
 navigate_workspace_down = ["j"]
 
 [ui]
-prompt_new_workspace_name = false # so the name changes with the current dir 
+prompt_new_workspace_name = true # false if you want the name to change with the current dir 
 pane_gaps = false
 
 [[keys.command]]

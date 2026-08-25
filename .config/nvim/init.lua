@@ -6,6 +6,7 @@ vim.cmd([[
 ]])
 
 -- LSP
+---- https://github.com/nvim-java/nvim-java
 vim.pack.add({
   {
     src = 'https://github.com/JavaHello/spring-boot.nvim',
